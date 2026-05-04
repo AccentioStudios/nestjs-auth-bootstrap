@@ -24,7 +24,39 @@ A Claude Code skill that drops a battle-tested auth architecture into a target N
 
 ## Installation
 
-### As a project-local skill (recommended)
+### Via Claude Code plugin manager (recommended)
+
+This repo ships as a plugin: marketplace manifest at `.claude-plugin/marketplace.json`, plugin manifest at `.claude-plugin/plugin.json`, slash commands at `.claude/commands/`, and the skill at `.claude/skills/nestjs-auth-bootstrap/`.
+
+Inside any Claude Code session:
+
+```bash
+/plugin marketplace add accentiostudios/nestjs-auth-bootstrap
+/plugin menu
+```
+
+Then enable **nestjs-auth-bootstrap** from the menu. The skill auto-loads on matching prompts; the slash commands become available immediately.
+
+Manage afterwards:
+
+```bash
+/plugin list                                          # what's installed
+/plugin update accentiostudios/nestjs-auth-bootstrap  # pull latest
+/plugin disable nestjs-auth-bootstrap                 # turn off without removing
+/plugin remove accentiostudios/nestjs-auth-bootstrap  # uninstall
+```
+
+#### Slash commands exposed by the plugin
+
+| Command | Purpose |
+|---|---|
+| `/bootstrap-auth` | Full 5-phase scaffold: analyze → ask → confirm → execute → verify. |
+| `/analyze-auth` | Phase 1 only — reports project state without writing files. |
+| `/extend-auth` | Add a resource, role, or recipe to an existing install via `EXTENDING.md`. |
+
+The skill also auto-triggers on natural prompts (see [Usage](#usage)) — slash commands are just deterministic shortcuts.
+
+### As a project-local skill (manual, no plugin)
 
 Drop the whole `nestjs-auth-bootstrap/` folder into your project's `.claude/skills/` directory:
 
