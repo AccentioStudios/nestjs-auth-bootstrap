@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+*.log
+.env
+.env.local
+.vercel
+website/.next/
+website/dist/
+website/node_modules/

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>nestjs-auth-bootstrap — Production NestJS auth, scaffolded.</title>
+  <meta name="description" content="Claude Code plugin that scaffolds a production-grade NestJS auth system: JWT + Passport, OAuth2-style permissions, role matrix, refresh tokens, throttling — in one guided flow." />
+  <meta property="og:title" content="nestjs-auth-bootstrap" />
+  <meta property="og:description" content="Production NestJS auth, scaffolded into your project in one guided flow." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nestjs-auth-bootstrap.accentiostudios.com" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e0234e'/%3E%3Cpath d='M16 8 L24 12 V20 L16 24 L8 20 V12 Z' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark"></span>
+        <span class="brand-name">nestjs-auth-bootstrap</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href="#commands">Commands</a>
+        <a href="#how">How it works</a>
+        <a class="nav-cta" href="https://github.com/accentiostudios/nestjs-auth-bootstrap" target="_blank" rel="noreferrer">GitHub →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <span class="eyebrow">Claude Code plugin · backend</span>
+      <h1>Production NestJS auth,<br/><span class="accent">scaffolded</span> in one guided flow.</h1>
+      <p class="lede">
+        JWT + Passport. OAuth2-style permissions. Role matrix. Refresh tokens. Throttling.
+        One global <code>CompositeAuthGuard</code>, decorator-driven handlers, and living docs
+        the next agent can extend without losing context.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#install">Install plugin</a>
+        <a class="btn btn-ghost" href="https://github.com/accentiostudios/nestjs-auth-bootstrap" target="_blank" rel="noreferrer">View source</a>
+      </div>
+      <pre class="hero-cmd"><code>/plugin marketplace add accentiostudios/nestjs-auth-bootstrap</code></pre>
+    </section>
+
+    <section id="features" class="wrap section">
+      <h2>What you get</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>One global guard</h3>
+          <p><code>CompositeAuthGuard</code> registered via <code>APP_GUARD</code> handles <code>@Public</code> skip, JWT validation, and permission checks in one pass. No per-handler stacking.</p>
+        </article>
+        <article class="card">
+          <h3>OAuth2-style permissions</h3>
+          <p><code>&lt;RESOURCE&gt;_READ</code>, <code>_WRITE</code>, <code>_MANAGE</code> for every resource you declare. <code>WRITE</code> covers create + update + delete.</p>
+        </article>
+        <article class="card">
+          <h3>Decorator-driven</h3>
+          <p><code>@Public</code>, <code>@RequirePermission(...)</code>, <code>@CurrentUser()</code> are the entire auth surface in your handlers.</p>
+        </article>
+        <article class="card">
+          <h3>Role matrix</h3>
+          <p><code>SUPER_ADMIN</code>, <code>ADMIN</code>, <code>USER</code> baked in. Add custom roles at scaffold time. <code>ASSIGNABLE_ROLES</code> guards privilege escalation.</p>
+        </article>
+        <article class="card">
+          <h3>Refresh + throttle</h3>
+          <p>Refresh-token endpoint, <code>ThrottlerGuard</code>, and global <code>ValidationPipe</code> with <code>whitelist</code> + <code>forbidNonWhitelisted</code>.</p>
+        </article>
+        <article class="card">
+          <h3>ORM agnostic</h3>
+          <p>Pick Mongoose, TypeORM, Prisma, or generate a stub repository to wire later. Templates render the right shape.</p>
+        </article>
+        <article class="card">
+          <h3>Living docs</h3>
+          <p>Appends a <code>CLAUDE.md</code> auth section and creates <code>docs/auth/EXTENDING.md</code> — a runbook the next agent uses to extend safely.</p>
+        </article>
+        <article class="card">
+          <h3>Multi-tenant ready</h3>
+          <p>Optional <code>org</code> claim in JWT and <code>organizationId</code> on DTOs. Toggle at scaffold time, no rewrite.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="install" class="wrap section">
+      <h2>Install</h2>
+      <div class="install-grid">
+        <div class="install-block">
+          <h3>Plugin <span class="tag">recommended</span></h3>
+          <pre><code>/plugin marketplace add accentiostudios/nestjs-auth-bootstrap
+/plugin menu</code></pre>
+          <p class="muted">Then enable <strong>nestjs-auth-bootstrap</strong> from the plugin menu. Restart not required.</p>
+        </div>
+        <div class="install-block">
+          <h3>Manual</h3>
+          <pre><code>git clone https://github.com/accentiostudios/nestjs-auth-bootstrap.git
+cp -r nestjs-auth-bootstrap/.claude/* ~/.claude/
+cp -r nestjs-auth-bootstrap/.claude-plugin ~/</code></pre>
+          <p class="muted">Restart Claude Code afterwards.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="commands" class="wrap section">
+      <h2>Commands</h2>
+      <table class="cmd-table">
+        <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>/bootstrap-auth</code></td><td>Full 5-phase scaffold: analyze → ask → confirm → execute → verify.</td></tr>
+          <tr><td><code>/analyze-auth</code></td><td>Phase 1 only. Reports project state without writing files.</td></tr>
+          <tr><td><code>/extend-auth</code></td><td>Add a resource, role, or recipe to an existing install via <code>EXTENDING.md</code>.</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">Auto-triggers on phrases like “add JWT auth”, “scaffold authentication”, “necesito auth en mi proyecto NestJS”, “crea sistema de roles y permisos”.</p>
+    </section>
+
+    <section id="how" class="wrap section">
+      <h2>How it works</h2>
+      <ol class="phases">
+        <li><strong>Analyze</strong> — inspects <code>package.json</code>, ORM, folder layout, existing auth artifacts.</li>
+        <li><strong>Ask</strong> — adaptive clarification: resources, roles, multi-tenancy, target paths.</li>
+        <li><strong>Confirm</strong> — single block: files, deps, final enum shapes. Waits for OK.</li>
+        <li><strong>Execute</strong> — installs deps, renders templates, merges <code>app.module.ts</code> / <code>main.ts</code> / <code>.env.example</code>.</li>
+        <li><strong>Verify</strong> — runs <code>tsc --noEmit</code>, lists endpoints, suggests cURL checks.</li>
+      </ol>
+      <p class="muted">No file is written before Phase 4. Each phase blocks until acknowledged.</p>
+    </section>
+
+    <section class="wrap section">
+      <h2>Non-negotiable design decisions</h2>
+      <ul class="rules">
+        <li>One global guard. No per-handler <code>@UseGuards()</code> stacking.</li>
+        <li>Single login endpoint <code>POST /auth/login</code> for all roles. Distinction by permission, not by route.</li>
+        <li>Permissions follow OAuth2 scope shape: <code>WRITE</code> = create + update + delete; <code>MANAGE</code> = admin ops.</li>
+        <li>Always included: refresh tokens, <code>ThrottlerGuard</code>, global <code>ValidationPipe</code>.</li>
+        <li>Not included by default: account lockout, secondary auth strategies, audit logging — recipes live in the generated <code>EXTENDING.md</code>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>Built by <a href="https://github.com/accentiostudios" target="_blank" rel="noreferrer">Accentio Studios</a>.</span>
+      <span>MIT licensed · <a href="https://github.com/accentiostudios/nestjs-auth-bootstrap" target="_blank" rel="noreferrer">GitHub</a></span>
+    </div>
+  </footer>
+</body>
+</html>

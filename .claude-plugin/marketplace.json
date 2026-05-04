@@ -1,0 +1,37 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "nestjs-auth-bootstrap",
+  "metadata": {
+    "description": "Production-grade NestJS authentication & authorization scaffolder. JWT + Passport, OAuth2-style permissions, role matrix, refresh tokens, throttling — generated into your project in one guided flow."
+  },
+  "owner": {
+    "name": "Accentio Studios",
+    "url": "https://github.com/accentiostudios"
+  },
+  "plugins": [
+    {
+      "name": "nestjs-auth-bootstrap",
+      "description": "Scaffold a complete NestJS auth system: AuthModule + JWT strategy + global CompositeAuthGuard + decorators (@Public, @RequirePermission, @CurrentUser) + OAuth2-style Permission enum + ROLE_PERMISSIONS matrix + refresh tokens + ThrottlerGuard. Supports Mongoose, TypeORM, Prisma, and stub repositories.",
+      "version": "2026.5.3.0001",
+      "author": {
+        "name": "Accentio Studios",
+        "url": "https://github.com/accentiostudios"
+      },
+      "source": "./",
+      "category": "backend",
+      "homepage": "https://nestjs-auth-bootstrap.accentiostudios.com",
+      "tags": [
+        "nestjs",
+        "authentication",
+        "authorization",
+        "jwt",
+        "passport",
+        "rbac",
+        "permissions",
+        "typescript",
+        "backend",
+        "scaffolding"
+      ]
+    }
+  ]
+}

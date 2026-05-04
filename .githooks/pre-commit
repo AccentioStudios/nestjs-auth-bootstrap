@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Auto-version .claude-plugin/{plugin.json,marketplace.json} on every commit.
+# Activate with: git config core.hooksPath .githooks
+#
+# Cross-platform: works on macOS (BSD sed), Linux (GNU sed), and Git Bash on Windows.
+
+set -e
+
+VERSION=$(date +"%Y.%-m.%-d.%H%M" 2>/dev/null || date +"%Y.%-m.%-d.%H%M")
+
+# Fallback for systems without %-m / %-d (Windows Git Bash uses MSYS which supports it).
+if [ -z "$VERSION" ]; then
+  VERSION=$(date +"%Y.%m.%d.%H%M")
+fi
+
+PLUGIN_FILE=".claude-plugin/plugin.json"
+MARKET_FILE=".claude-plugin/marketplace.json"
+
+bump_version() {
+  local file="$1"
+  if [ ! -f "$file" ]; then
+    return 0
+  fi
+
+  # Detect sed flavor: GNU sed accepts -i without arg, BSD sed needs -i ''.
+  if sed --version >/dev/null 2>&1; then
+    sed -i -E "s/(\"version\"[[:space:]]*:[[:space:]]*\")[^\"]+(\")/\1${VERSION}\2/" "$file"
+  else
+    sed -i '' -E "s/(\"version\"[[:space:]]*:[[:space:]]*\")[^\"]+(\")/\1${VERSION}\2/" "$file"
+  fi
+
+  git add "$file"
+}
+
+bump_version "$PLUGIN_FILE"
+bump_version "$MARKET_FILE"
+
+echo "[pre-commit] bumped plugin version → ${VERSION}"
